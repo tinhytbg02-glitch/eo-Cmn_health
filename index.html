@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Start Page</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+    }
+
+    /* SCREEN 1 */
+    #screen1 {
+      height: 100vh;
+      background: url("Screenshot\ 2026-04-26\ 110229.png") no-repeat center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .start-btn {
+      padding: 15px 40px;
+      font-size: 20px;
+      background: none;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      position: absolute;
+      top: 346px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 254px;
+      height: 60px;
+      cursor: pointer;
+    }
+
+    /* SCREEN 2 */
+    #screen2 {
+      display: none;
+      padding: 40px;
+    }
+
+    .container {
+      width: 700px;
+      margin: 0 auto;
+    }
+
+    .title {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-top: 2px solid #5bbad5;
+      border-bottom: 2px solid #5bbad5;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .label {
+      width: 180px;
+      background: #d9edf4;
+      font-weight: bold;
+    }
+
+    .input-area input,
+    .input-area select {
+      padding: 6px;
+      margin-right: 5px;
+    }
+
+    .notice {
+      color: red;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .guide-btn {
+      display: inline-block;
+      margin-top: 5px;
+      background: #5bbad5;
+      color: #fff;
+      padding: 3px 8px;
+      font-size: 12px;
+      border-radius: 3px;
+      text-decoration: none;
+    }
+
+    .submit-btn {
+      display: block;
+      margin: 20px auto;
+      background: #2da3d9;
+      color: #fff;
+      border: none;
+      padding: 10px 30px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background: #1b8bbf;
+    }
+
+    /* SCREEN 3 */
+    #screen3 {
+      display: none;
+      height: 100vh;
+      background: url("Screenshot\ 2026-04-28\ 194717.png") no-repeat center/cover;
+    }
+
+    .xem-btn {
+      padding: 15px 40px;
+      font-size: 11px;
+      background: none;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      position: absolute;
+      top: 248px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      left: 760px;
+      height: 20px;
+      display: block;
+      cursor: pointer;
+    }
+
+
+
+    #screen4 {
+      display: none;
+      height: 100vh;
+      background: url('https://via.placeholder.com/1200x800/00cc99') no-repeat center/cover;
+      margin: 0;
+      font-family: Arial;
+    }
+
+    .containe {
+      text-align: center;
+      padding-top: 20px;
+    }
+
+    .top-img {
+      width: 220px;
+      border-radius: 12px;
+    }
+
+    .blink-text {
+      font-weight: bold;
+      animation: blinkColor 0.6s infinite;
+    }
+
+    @keyframes blinkColor {
+      0% {
+        color: red;
+      }
+
+      50% {
+        color: blue;
+      }
+
+      100% {
+        color: red;
+      }
+    }
+
+    .more-btn {
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .video-box {
+      display: none;
+      margin-top: 20px;
+    }
+
+    video,
+    img {
+      width: 280px;
+      border-radius: 10px;
+    }
+
+    .xanh {
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- SCREEN 1 -->
+  <div id="screen1">
+
+    <button class=" start-btn" onclick="goNext()"> </button>
+  </div>
+
+  <!-- SCREEN 2 -->
+  <div id="screen2">
+    <div class="container">
+      <div class="title">*결과 확인을 위해 아래 정보를 입력해주세요.</div>
+      <table>
+        <tr>
+          <td class="label">이름(Name)</td>
+          <td class="inputclass">
+
+            <span><b>Anh tên là HÙNG )))</b> 님</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">생년월일(Birth)</td>
+          <td class="input-area">
+            <select id="year"></select>
+            <select id="month"></select>
+            <select id="day"></select>
+          </td>
+        </tr>
+      </table>
+
+      <div class="notice">
+        - 모바일에서는 보안설정에 따라 결과가 안보일 수 있습니다. (PC조회가능)<br>
+        - 본 사이트는 크롬에 최적화 되어있습니다.<br>
+        - 결과보는 방법을 보시려면 오른쪽 버튼을 눌러주세요.
+      </div>
+      <a href="#" class="guide-btn">사용법 안내</a>
+
+      <button class="submit-btn" onclick="checkBirth()">XEM CHIM</button>
+      <p id="result" style="color:red;text-align:center;"></p>
+
+
+    </div>
+  </div>
+
+  <!-- SCREEN 3 -->
+  <div id="screen3">
+    <button class="xem-btn" onclick="go4()"> </button>
+  </div>
+  <!-- SCREEN 4 -->
+  <div id="screen4">
+
+
+    <div class="containe">
+
+      <img class="top-img" src="https://cdn2.fptshop.com.vn/unsafe/Hinh_anh_tai_khoan_het_tien_12_e6779da570.jpg">
+
+      <div class="blink-text">
+        <p>&gt;HẾT TIỀN&lt;</p>
+        <p>NẠP TIỀN ĐỂ XEM FULL HD KHÔNG CHE NHÉ !</p>
+      </div>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br><br></br>
+      <br></br>
+      <p> Đùa thôi ấn đây mới xem được</p>
+      <div class="more-btn" onclick="showGif()">
+        <div>⬇</div>
+        <div class="xanh"><u>xem thêm</u></div>
+      </div>
+
+      <div class="video-box" id="videoBox">
+
+        <!-- GIF -->
+        <img src="https://i.makeagif.com/media/11-08-2021/2RvQbq.gif">
+
+        <div class="blink-text">AHIHI LẠI BỊ LỪA TIẾP ))))))</div>
+
+        <img src="https://phunugioi.com/wp-content/uploads/2022/04/Anh-meme-meo-hai-huoc.jpg">
+
+      </div>
+
+    </div>
+
+    <script>
+      function showGif() {
+        document.getElementById("videoBox").style.display = "block";
+      }
+    </script>
+
+    <script>
+      // chuyển màn
+      function goNext() {
+        screen1.style.display = "none";
+        screen2.style.display = "block";
+      }
+
+      // tạo ngày tháng
+      for (let y = 2025; y >= 1921; y--) year.add(new Option(y, y));
+      for (let m = 1; m <= 12; m++) month.add(new Option(m, m));
+
+      function updateDays() {
+        let d = new Date(year.value, month.value, 0).getDate();
+        day.innerHTML = "";
+        for (let i = 1; i <= d; i++) day.add(new Option(i, i));
+      }
+      year.onchange = updateDays;
+      month.onchange = updateDays;
+      updateDays();
+
+      // kiểm tra
+      function checkBirth() {
+        if (year.value == "1984" && month.value == "9" && day.value == "9") {
+          screen2.style.display = "none";
+          screen3.style.display = "block";
+        } else {
+          result.innerText = "❌ NGÀY SINH ANH HÙNG MÀ @ KHÔNG BIẾT À ))) CHỊU RỒI";
+        }
+
+      }
+      // chuyển sang screen 4
+      function go4() {
+        document.getElementById("screen3").style.display = "none";
+        document.getElementById("screen4").style.display = "block";
+      }
+    </script>
+
+</body>
+
+</html>
