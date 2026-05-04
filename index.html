@@ -1,327 +1,256 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="ko">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Start Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Report</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-    }
+    <!-- PDF LIB -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-    /* SCREEN 1 */
-    #screen1 {
-      height: 100vh;
-      background: url("Screenshot\ 2026-04-26\ 110229.png") no-repeat center/cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
 
-    .start-btn {
-      padding: 15px 40px;
-      font-size: 20px;
-      background: none;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      position: absolute;
-      top: 346px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 254px;
-      height: 60px;
-      cursor: pointer;
-    }
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #f2f4f7;
+        }
 
-    /* SCREEN 2 */
-    #screen2 {
-      display: none;
-      padding: 40px;
-    }
+        /* HEADER */
+        .header {
+            position: relative;
+            top: 0;
+            background: #fff;
+            padding: 14px 0;
+            text-align: center;
+            border-bottom: 1px solid #e5e5e5;
+        }
 
-    .container {
-      width: 700px;
-      margin: 0 auto;
-    }
+        .menu {
+            position: absolute;
+            left: 15px;
+            top: 14px;
+            width: 28px;
+        }
 
-    .title {
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
+        .menu div {
+            height: 4px;
+            background: #49bcd3;
+            margin: 5px 0;
+            border-radius: 2px;
+        }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      border-top: 2px solid #5bbad5;
-      border-bottom: 2px solid #5bbad5;
-    }
+        .logo {
+            font-size: 18px;
+            color: #6c78a0;
+            font-weight: 700;
+        }
 
-    td {
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
-    }
+        /* BOX INFO */
+        .info {
+            margin: 12px;
+            border: 3px solid #49bcd3;
+            background: #fff;
+            padding: 12px;
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-    .label {
-      width: 180px;
-      background: #d9edf4;
-      font-weight: bold;
-    }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 15px;
+        }
 
-    .input-area input,
-    .input-area select {
-      padding: 6px;
-      margin-right: 5px;
-    }
+        .item {
+            font-size: 13px;
+            color: #666;
+        }
 
-    .notice {
-      color: red;
-      font-size: 12px;
-      margin-top: 10px;
-    }
+        .item b {
+            display: block;
+            color: #333;
+            font-weight: 500;
+        }
 
-    .guide-btn {
-      display: inline-block;
-      margin-top: 5px;
-      background: #5bbad5;
-      color: #fff;
-      padding: 3px 8px;
-      font-size: 12px;
-      border-radius: 3px;
-      text-decoration: none;
-    }
+        .value {
+            color: #1e88e5;
+            font-weight: 700;
+            margin-top: 2px;
+        }
 
-    .submit-btn {
-      display: block;
-      margin: 20px auto;
-      background: #2da3d9;
-      color: #fff;
-      border: none;
-      padding: 10px 30px;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+        /* BUTTON */
+        .pdf {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            background: #e53935;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+        }
 
-    .submit-btn:hover {
-      background: #1b8bbf;
-    }
+        /* CONTENT EXPORT */
+        #content {
+            width: 210mm;
+            min-height: 297mm;
+            margin: auto;
+            background: white;
+        }
 
-    /* SCREEN 3 */
-    #screen3 {
-      display: none;
-      height: 100vh;
-      background: url("Screenshot\ 2026-04-28\ 194717.png") no-repeat center/cover;
-    }
+        /* TITLE */
+        .title {
+            margin: 12px;
+            background: #e9f6f8;
+            border-left: 6px solid #49bcd3;
+            padding: 12px;
+            font-weight: 700;
+            text-align: center;
+        }
 
-    .xem-btn {
-      padding: 15px 40px;
-      font-size: 11px;
-      background: none;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      position: absolute;
-      top: 248px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      left: 760px;
-      height: 20px;
-      display: block;
-      cursor: pointer;
-    }
+        .container {
+            text-align: center;
+            margin: 20px 0;
+        }
 
+        .img-2 {
+            width: 210mm;
+            height: auto;
+            display: block;
+        }
 
+        .img-3 {
+            width: 195mm;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
 
-    #screen4 {
-      display: none;
-      height: 100vh;
-      background: url('https://via.placeholder.com/1200x800/00cc99') no-repeat center/cover;
-      margin: 0;
-      font-family: Arial;
-    }
+        #in {
+            width: 210mm;
+            height: auto;
+            margin: auto;
+            background: white;
+            display: block;
+        }
 
-    .containe {
-      text-align: center;
-      padding-top: 20px;
-    }
-
-    .top-img {
-      width: 220px;
-      border-radius: 12px;
-    }
-
-    .blink-text {
-      font-weight: bold;
-      animation: blinkColor 0.6s infinite;
-    }
-
-    @keyframes blinkColor {
-      0% {
-        color: red;
-      }
-
-      50% {
-        color: blue;
-      }
-
-      100% {
-        color: red;
-      }
-    }
-
-    .more-btn {
-      margin-top: 20px;
-      cursor: pointer;
-    }
-
-    .video-box {
-      display: none;
-      margin-top: 20px;
-    }
-
-    video,
-    img {
-      width: 280px;
-      border-radius: 10px;
-    }
-
-    .xanh {
-      color: blue;
-    }
-  </style>
+        .img0 {
+            width: 190mm;
+            height: auto;
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
 
-  <!-- SCREEN 1 -->
-  <div id="screen1">
 
-    <button class=" start-btn" onclick="goNext()"> </button>
-  </div>
 
-  <!-- SCREEN 2 -->
-  <div id="screen2">
-    <div class="container">
-      <div class="title">*결과 확인을 위해 아래 정보를 입력해주세요.</div>
-      <table>
-        <tr>
-          <td class="label">이름(Name)</td>
-          <td class="inputclass">
 
-            <span><b>Anh tên là HÙNG )))</b> 님</span>
-          </td>
-        </tr>
-        <tr>
-          <td class="label">생년월일(Birth)</td>
-          <td class="input-area">
-            <select id="year"></select>
-            <select id="month"></select>
-            <select id="day"></select>
-          </td>
-        </tr>
-      </table>
+    <!-- HEADER -->
+    <div class="header">
+        <div class="menu">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="logo">FATIMA HOSPITAL</div>
+    </div>
 
-      <div class="notice">
-        - 모바일에서는 보안설정에 따라 결과가 안보일 수 있습니다. (PC조회가능)<br>
-        - 본 사이트는 크롬에 최적화 되어있습니다.<br>
-        - 결과보는 방법을 보시려면 오른쪽 버튼을 눌러주세요.
-      </div>
-      <a href="#" class="guide-btn">사용법 안내</a>
+    <!-- INFO -->
+    <div class="info">
+        <div class="grid">
+            <div class="item">
+                <b>성명(Name)</b>
+                <div class="value">황반딘</div>
+            </div>
 
-      <button class="submit-btn" onclick="checkBirth()">XEM CHIM</button>
-      <p id="result" style="color:red;text-align:center;"></p>
+            <div class="item">
+                <b>생년월일(Birth)</b>
+                <div class="value">20020201</div>
+            </div>
+
+            <div class="item">
+                <b>나이/성별(Age/Sex)</b>
+                <div class="value">24 / 남</div>
+            </div>
+
+            <div class="item">
+                <b>검진일(Exam Date)</b>
+                <div class="value">2026년 02월 02일</div>
+            </div>
+
+            <div class="item">
+                <b>등록번호(Chart No.)</b>
+                <div class="value">89110861</div>
+            </div>
+        </div>
+
+        <!-- BUTTON -->
+        <button class="pdf" onclick="savePDF()">PDF 저장</button>
+
 
 
     </div>
-  </div>
-
-  <!-- SCREEN 3 -->
-  <div id="screen3">
-    <button class="xem-btn" onclick="go4()"> </button>
-  </div>
-  <!-- SCREEN 4 -->
-  <div id="screen4">
-
-
-    <div class="containe">
-
-      <img class="top-img" src="https://cdn2.fptshop.com.vn/unsafe/Hinh_anh_tai_khoan_het_tien_12_e6779da570.jpg">
-
-      <div class="blink-text">
-        <p>&gt;HẾT TIỀN&lt;</p>
-        <p>NẠP TIỀN ĐỂ XEM FULL HD KHÔNG CHE NHÉ !</p>
-      </div>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br><br></br>
-      <br></br>
-      <p> Đùa thôi ấn đây mới xem được</p>
-      <div class="more-btn" onclick="showGif()">
-        <div>⬇</div>
-        <div class="xanh"><u>xem thêm</u></div>
-      </div>
-
-      <div class="video-box" id="videoBox">
-
-        <!-- GIF -->
-        <img src="https://i.makeagif.com/media/11-08-2021/2RvQbq.gif">
-
-        <div class="blink-text">AHIHI LẠI BỊ LỪA TIẾP ))))))</div>
-
-        <img src="https://phunugioi.com/wp-content/uploads/2022/04/Anh-meme-meo-hai-huoc.jpg">
-
-      </div>
-
+    <div id="content">
+        <div class="container">
+            <img src="a1.png" class="img-2">
+            <img src="Screenshot 2026-04-29 030757.png" clas="img-2">
+            <img src="condau.png" class="img0" style="display:block; margin-left:auto; margin-right:5%">
+            <img src="chuthich1.png" class="img-3">
+            <img src="chuthich2.png" class="img-3">
+        </div>
     </div>
+</body>
 
-    <script>
-      function showGif() {
-        document.getElementById("videoBox").style.display = "block";
-      }
-    </script>
+<script>
+    function savePDF() {
+        const btn = document.querySelector(".pdf");
+        btn.style.visibility = "hidden";
 
-    <script>
-      // chuyển màn
-      function goNext() {
-        screen1.style.display = "none";
-        screen2.style.display = "block";
-      }
+        const images = document.querySelectorAll("img");
 
-      // tạo ngày tháng
-      for (let y = 2025; y >= 1921; y--) year.add(new Option(y, y));
-      for (let m = 1; m <= 12; m++) month.add(new Option(m, m));
+        Promise.all([...images].map(img => {
+            if (img.complete) return Promise.resolve();
+            return new Promise(resolve => {
+                img.onload = img.onerror = resolve;
+            });
+        }))
+            .then(() => {
+                const element = document.getElementById("content");
 
-      function updateDays() {
-        let d = new Date(year.value, month.value, 0).getDate();
-        day.innerHTML = "";
-        for (let i = 1; i <= d; i++) day.add(new Option(i, i));
-      }
-      year.onchange = updateDays;
-      month.onchange = updateDays;
-      updateDays();
-
-      // kiểm tra
-      function checkBirth() {
-        if (year.value == "1984" && month.value == "9" && day.value == "9") {
-          screen2.style.display = "none";
-          screen3.style.display = "block";
-        } else {
-          result.innerText = "❌ NGÀY SINH ANH HÙNG MÀ @ KHÔNG BIẾT À ))) CHỊU RỒI";
-        }
-
-      }
-      // chuyển sang screen 4
-      function go4() {
-        document.getElementById("screen3").style.display = "none";
-        document.getElementById("screen4").style.display = "block";
-      }
-    </script>
-
+                return html2pdf().set({
+                    margin: 0,
+                    filename: 'health_report.pdf',
+                    image: { type: 'jpeg', quality: 1 },
+                    html2canvas: {
+                        scale: 2,
+                        useCORS: true
+                    },
+                    jsPDF: {
+                        unit: 'mm',
+                        format: 'a4',
+                        orientation: 'portrait'
+                    }
+                }).from(element).save();
+            })
+            .catch(err => {
+                console.error("PDF lỗi:", err);
+                alert("Xuất PDF lỗi, mở Console để xem chi tiết");
+            })
+            .finally(() => {
+                btn.style.visibility = "visible";
+            });
+    }
+</script>
+</div>
 </body>
 
 </html>
