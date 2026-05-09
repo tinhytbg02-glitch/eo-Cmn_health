@@ -146,6 +146,19 @@
             height: auto;
             display: block;
         }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            position: relative;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .page-break {
+            break-after: page;
+            page-break-after: always;
+        }
     </style>
 </head>
 
@@ -200,14 +213,18 @@
 
     </div>
     <div id="content">
-        <div class="container">
-            <img src="a1.png" class="img-2">
-            <img src="Screenshot 2026-04-29 030757.png" clas="img-2">
-            <img src="condau.png" class="img0" style="display:block; margin-left:auto; margin-right:5%">
-            <img src="chuthich1.png" class="img-3">
-            <img src="chuthich2.png" class="img-3">
+        <div class="page page-break">
+            <div class="container">
+                <img src="a1.png" class="img-2">
+                <img src="Screenshot 2026-04-29 030757.png" clas="img-2">
+                <img src="condau.png" class="img0" style="display:block; margin-left:auto; margin-right:5%">
+            </div>
+
         </div>
+        <img src="chuthich1.png" class="img-3">
+        <img src="chuthich2.png" class="img-3">
     </div>
+
 </body>
 
 <script>
